@@ -15,15 +15,22 @@ public class WebSocketRailsDispatcher {
 	private Map<Integer, WebSocketRailsEvent> queue;
 	private Map<String, List<WebSocketRailsDataCallback>> callbacks;
 	private WebSocketRailsConnection connection;
-	
-	public WebSocketRailsDispatcher(URL url) {
-        this.url = url;
+
+	public WebSocketRailsDispatcher(String url) {
+
+        try {
+          this.url = new URL(url);
+        } catch (MalformedURLException e) {
+          e.printStackTrace();
+          return;
+        }
+
         state = "connecting";
         channels = new HashMap<String, WebSocketRailsChannel>();
         queue = new HashMap<Integer, WebSocketRailsEvent>();
         callbacks = new HashMap<String, List<WebSocketRailsDataCallback>>();
-        
-        connection = new WebSocketRailsConnection(url, this);
+
+        connection = new WebSocketRailsConnection(this.url, this);
         connectionId = "";
 	}
 

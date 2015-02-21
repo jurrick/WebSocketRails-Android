@@ -44,15 +44,9 @@ private WebSocketRailsDispatcher dispatcher;
 protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.activity_main);
-	
-	try {
-		dispatcher = new WebSocketRailsDispatcher(new URL("http://192.168.100.109:3000/websocket"));
-	} 
-	catch (MalformedURLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	
+
+	dispatcher = new WebSocketRailsDispatcher("http://192.168.100.109:3000/websocket");
+
 	Button button = (Button) findViewById(R.id.sendButton);
 	
 	button.setOnClickListener(new View.OnClickListener() {
